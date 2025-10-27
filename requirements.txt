@@ -1,0 +1,10 @@
+# Data & ML
+pandas
+numpy
+scikit-learn
+xgboost
+joblib
+
+# API
+fastapi
+uvicorn[standard]

@@ -1,0 +1,18 @@
+# .dockerignore
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local environment
+.venv/
+venv/
+*.env
+
+# Data and scripts (not needed for the *prediction* API)
+data/
+scripts/
+
+# Git
+.git/
+.gitignore
