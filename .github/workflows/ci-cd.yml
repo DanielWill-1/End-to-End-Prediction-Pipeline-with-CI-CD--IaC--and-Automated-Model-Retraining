@@ -130,15 +130,12 @@ jobs:
         run: |
           echo "Testing POST to: ${{ needs.deploy_to_cloud_run.outputs.service_url }}/predict"
           
-          # This command does 4 things:
-          # 1. Sends a POST request with sample JSON data
-          # 2. -s = silent mode (no progress bar)
-          # 3. -o /dev/null = throw away the response body (we don't need it)
-          # 4. -w "%{http_code}" = only print the HTTP status code
           response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
             -H "Content-Type: application/json" \
-            -d '{"pregnancies": 6, "glucose": 148, "blood_pressure": 72, "skin_thickness": 35, "insulin": 0, "bmi": 33.6, "diabetes_pedigree": 0.627, "age": 50}' \
+            # --- THIS IS THE FIX: Wrapped the JSON in brackets [] ---
+            -d '[{"pregnancies": 6, "glucose": 148, "blood_pressure": 72, "skin_thickness": 35, "insulin": 0, "bmi": 33.6, "diabetes_pedigree": 0.627, "age": 50}]' \
+            # --------------------------------------------------------
             "${{ needs.deploy_to_cloud_run.outputs.service_url }}/predict")
           
           echo "API returned status code: $response_code"
