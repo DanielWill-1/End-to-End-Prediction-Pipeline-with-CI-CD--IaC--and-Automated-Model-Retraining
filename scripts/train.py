@@ -1,7 +1,7 @@
 # --- 1. SETUP: Install necessary libraries ---
 
 
-import kagglehub
+#import kagglehub
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -18,7 +18,7 @@ print("--- Libraries Imported ---")
 print("\n--- Downloading Dataset ---")
 # path = kagglehub.dataset_download("uciml/pima-indians-diabetes-database")
 # dataset_path = Path(path)
-csv_file = "data\diabetes.csv"
+csv_file = "data/diabetes.csv"
 print(f"Dataset downloaded to: {csv_file}")
 
 data = pd.read_csv(csv_file)
