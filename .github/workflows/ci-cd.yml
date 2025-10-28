@@ -12,7 +12,7 @@ on:
     branches:
       - main
     paths:
-      - 'data\diabetes.csv' # Example: 'data/training_data.csv'
+      - 'data/diabetes.csv' # Example: 'data/training_data.csv'
 
 # Environment variables for your GCP project
 env:
@@ -52,7 +52,7 @@ jobs:
       - name: Train the model
         run: |
           echo "Training model..."
-          python scripts\train.py # <-- CHANGE THIS to your training script
+          python scripts/train.py # <-- CHANGE THIS to your training script
           echo "Model training complete."
 
       - name: Authenticate to Google Cloud
