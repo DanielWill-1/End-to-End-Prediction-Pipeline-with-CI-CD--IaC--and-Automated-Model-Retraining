@@ -1,4 +1,4 @@
-
+# terraform/outputs.tf
 
 output "api_service_url" {
   description = "The public URL of the deployed FastAPI service."
