@@ -133,7 +133,7 @@ jobs:
           response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
             -H "Content-Type: application/json" \
-            -d '[{"Pregnancies": 3, "Glucose": 200, "BloodPressure": 55, "SkinThickness": 55, "Insulin": 0, "BMI": 90, "DiabetesPedigreeFunction": 4, "Age": 90}]' \
+            -d '{"Pregnancies": 3, "Glucose": 200, "BloodPressure": 55, "SkinThickness": 55, "Insulin": 0, "BMI": 90, "DiabetesPedigreeFunction": 4, "Age": 90}' \
             "${{ needs.deploy_to_cloud_run.outputs.service_url }}/predict")
           
           echo "API returned status code: $response_code"
