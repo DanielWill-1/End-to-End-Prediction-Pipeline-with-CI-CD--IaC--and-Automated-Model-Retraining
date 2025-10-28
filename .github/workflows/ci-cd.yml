@@ -116,31 +116,28 @@ jobs:
   smoke_test_endpoint:
     name: Smoke Test Live Endpoint
     runs-on: ubuntu-latest
-    needs: deploy_to_cloud_run # This job runs ONLY AFTER deployment succeeds
+    needs: deploy_to_cloud_run 
 
     steps:
       - name: Test root (GET) endpoint
         run: |
           echo "Testing URL: ${{ needs.deploy_to_cloud_run.outputs.service_url }}"
-          # -f = fail fast (exit with error) if server returns 4xx or 5xx
-          # -L = follow redirects
           curl -f -L "${{ needs.deploy_to_cloud_run.outputs.service_url }}"
 
       - name: Test predict (POST) endpoint
+        # This 'run' block is the one you need to fix
         run: |
           echo "Testing POST to: ${{ needs.deploy_to_cloud_run.outputs.service_url }}/predict"
           
+          # Notice the '\' at the end of every line except the last one
           response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
             -H "Content-Type: application/json" \
-            # --- THIS IS THE FIX: Wrapped the JSON in brackets [] ---
             -d '[{"pregnancies": 6, "glucose": 148, "blood_pressure": 72, "skin_thickness": 35, "insulin": 0, "bmi": 33.6, "diabetes_pedigree": 0.627, "age": 50}]' \
-            # --------------------------------------------------------
             "${{ needs.deploy_to_cloud_run.outputs.service_url }}/predict")
           
           echo "API returned status code: $response_code"
           
-          # Check if the status code is 200 (OK)
           if [ $response_code -ne 200 ]; then
             echo "Test failed: API did not return a 200 OK."
             exit 1
