@@ -125,15 +125,15 @@ jobs:
           curl -f -L "${{ needs.deploy_to_cloud_run.outputs.service_url }}"
 
       - name: Test predict (POST) endpoint
+        # This 'run' block is the one you need to fix
         run: |
           echo "Testing POST to: ${{ needs.deploy_to_cloud_run.outputs.service_url }}/predict"
           
+          # Notice the '\' at the end of every line except the last one
           response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
             -H "Content-Type: application/json" \
-            # --- THIS IS THE FIX: Using your capitalized keys ---
             -d '[{"Pregnancies": 3, "Glucose": 200, "BloodPressure": 55, "SkinThickness": 55, "Insulin": 0, "BMI": 90, "DiabetesPedigreeFunction": 4, "Age": 90}]' \
-            # ---------------------------------------------------
             "${{ needs.deploy_to_cloud_run.outputs.service_url }}/predict")
           
           echo "API returned status code: $response_code"
