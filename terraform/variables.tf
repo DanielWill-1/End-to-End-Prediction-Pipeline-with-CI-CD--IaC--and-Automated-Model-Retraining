@@ -24,10 +24,6 @@ variable "registry_name" {
   default     = "my-app-registry"
 }
 
-# -----------------------------------------------------
-# ADD THESE NEW VARIABLES
-# -----------------------------------------------------
-
 variable "cloud_run_service_name" {
   description = "The name for the Cloud Run API service."
   type        = string
@@ -35,7 +31,7 @@ variable "cloud_run_service_name" {
 }
 
 variable "docker_image_name" {
-  description = "The name and tag of the Docker image to deploy (e.g., 'my-image:latest')."
+  description = "The name and tag of the Docker image to deploy "
   type        = string
-  default     = "my-api:latest" # <-- IMPORTANT: You MUST change this
+  default     = "my-diabetes-api:latest" # <-- IMPORTANT: You MUST change this
 }
